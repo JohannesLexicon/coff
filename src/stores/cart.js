@@ -3,11 +3,18 @@ import { defineStore } from 'pinia';
 
 export const useCartStore = defineStore('cart', () => {
   const store = ref([]);
+
   // Map hämtar ut alla kvantiteter och lägger dem i en array
   // Reduce adderar kvantiteterna, med start från 0
   const count = computed(() =>
     store.value
       .map((product) => product.quantity)
+      .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+  );
+
+  const subtotal = computed(() =>
+    store.value
+      .map((product) => product.price * product.quantity)
       .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
   );
 
@@ -29,5 +36,5 @@ export const useCartStore = defineStore('cart', () => {
     }
   };
 
-  return { store, count, add, remove };
+  return { store, count, subtotal, add, remove };
 });

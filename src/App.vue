@@ -1,42 +1,34 @@
 <template>
-  <h2>Products</h2>
-  <div
-    v-for="product in products.store"
-    :key="product.sku"
-  >
-    <button @click="cart.add(product)">Add</button>
-    <span>{{ product.sku }}</span>
-  </div>
-
-  <h2>Cart ({{ cart.count }})</h2>
-  <div
-    v-for="product in cart.store"
-    :key="product.sku"
-  >
-    <button @click="cart.remove(product)">Remove</button>
-    <input
-      type="number"
-      name="cartQuantity"
-      id="cartQuantity"
-      min="0"
-      v-model="product.quantity"
-    />
-    <span> {{ product.sku }}</span>
-  </div>
+  <TheNavbar />
+  <RouterView />
 </template>
 
 <script setup>
-import { watch } from 'vue';
-import { useProductsStore } from '@/stores/products';
-import { useCartStore } from '@/stores/cart';
-
-const products = useProductsStore();
-const cart = useCartStore();
-
-// För att göra något om kvantitet blir 0
-watch(cart.store, () => {
-  if (cart.store.some((product) => product.quantity === 0)) {
-    console.log('it zero');
-  }
-});
+import { RouterView } from 'vue-router';
+import TheNavbar from '@/components/TheNavbar.vue';
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+body {
+  background-color: #fafaf9;
+  color: #1e293b;
+  font-size: large;
+}
+.container {
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-inline: 4px;
+}
+.color-primary {
+  color: #292524;
+}
+.bold {
+  font-weight: bold;
+}
+</style>
