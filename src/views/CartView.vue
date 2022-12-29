@@ -33,10 +33,9 @@
 <script setup>
 import { watch } from 'vue';
 import { useCartStore } from '@/stores/cart';
-import { usePositiveInputValidation } from '@/utils/validation/positiveinput.js';
+import * as positiveInput from '@/utils/validation/positiveinput.js';
 
 const cart = useCartStore();
-const positiveInput = usePositiveInputValidation();
 
 watch(cart.store, () =>
   cart.store.forEach((product) => {
